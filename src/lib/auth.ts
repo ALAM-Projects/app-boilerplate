@@ -53,16 +53,19 @@ export const authOptions: NextAuthOptions = {
           id: existingUser.id,
           email: existingUser.email,
           username: existingUser.username,
+          role: existingUser.role,
         };
       },
     }),
   ],
   callbacks: {
-    async jwt({ user, token }) {
+    async jwt({ token, user }) {
       if (user) {
         return {
           ...token,
           username: user.username,
+          id: user.id,
+          role: user.role,
         };
       }
       return token;
@@ -73,6 +76,8 @@ export const authOptions: NextAuthOptions = {
         user: {
           ...session.user,
           username: token.username,
+          id: token.id,
+          role: token.role,
         },
       };
     },

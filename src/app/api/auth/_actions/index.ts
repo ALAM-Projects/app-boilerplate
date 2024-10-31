@@ -1,4 +1,4 @@
-import { defaultActions } from "..";
+import { defaultActions } from "@/actions";
 
 type SignUpPayload = {
   username: string;
