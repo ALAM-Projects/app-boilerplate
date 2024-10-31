@@ -17,6 +17,8 @@ import Link from "next/link";
 import GoogleSignInButton from "../GoogleSignInButton";
 import { redirect } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { signUp } from "@/actions/auth";
+import { log } from "console";
 
 const FormSchema = z
   .object({
@@ -47,19 +49,13 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    const response = await fetch("/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: values.username,
-        email: values.email,
-        password: values.password,
-      }),
+    const response = await signUp({
+      username: values.username,
+      email: values.email,
+      password: values.password,
     });
 
-    if (response.ok) {
+    if (!response.error) {
       redirect("/sign-in");
     } else {
       return toast({
