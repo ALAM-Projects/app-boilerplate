@@ -2,7 +2,7 @@
 
 import { get } from "http";
 import Posts from ".";
-import { getPosts } from "@/app/api/post/_actions";
+import { getPosts } from "@/app/api/post/_controllers";
 
 const PostsPage = async () => {
   const response = await getPosts();

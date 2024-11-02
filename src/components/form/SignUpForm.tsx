@@ -17,7 +17,7 @@ import Link from "next/link";
 import GoogleSignInButton from "../GoogleSignInButton";
 import { redirect } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { signUp } from "@/app/api/auth/_actions";
+import { signUp } from "@/app/api/auth/_controllers";
 
 const FormSchema = z
   .object({
