@@ -14,10 +14,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import GoogleSignInButton from "../GoogleSignInButton";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { sendResetPasswordEmail } from "@/app/api/email/_controllers";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -38,6 +38,12 @@ const SignInForm = () => {
       password: "",
     },
   });
+
+  // const sendEmail = async () => {
+  //   const result = await sendResetPasswordEmail();
+
+  //   console.log("EMAIL RESULT", result);
+  // };
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     const signInData = await signIn("credentials", {
@@ -97,10 +103,16 @@ const SignInForm = () => {
           Sign in
         </Button>
       </form>
+      <p className="text-center text-sm text-gray-600 mt-2">
+        I don&apos;t remebmer my password.{" "}
+        <Button onClick={() => {}} className="text-blue-500 hover:underline">
+          Reset
+        </Button>
+      </p>
       <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
         or
       </div>
-      <GoogleSignInButton>Sign in with Google</GoogleSignInButton>
+      {/* <GoogleSignInButton>Sign in with Google</GoogleSignInButton> */}
       <p className="text-center text-sm text-gray-600 mt-2">
         If you don&apos;t have an account, please&nbsp;
         <Link className="text-blue-500 hover:underline" href="/sign-up">
