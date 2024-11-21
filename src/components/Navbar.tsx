@@ -4,6 +4,7 @@ import { HandMetal } from "lucide-react";
 import LogoutButton from "./LogoutButton";
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
+import { ThemeSelector } from "./ui/theme-selector";
 
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
@@ -14,13 +15,16 @@ const Navbar = async () => {
         <Link href="/">
           <HandMetal />
         </Link>
-        {session?.user?.username ? (
-          <LogoutButton />
-        ) : (
-          <Link className={buttonVariants()} href="/sign-in">
-            Sign in
-          </Link>
-        )}
+        <div className="flex items-center gap-2">
+          <ThemeSelector />
+          {session?.user?.username ? (
+            <LogoutButton />
+          ) : (
+            <Link className={buttonVariants()} href="/sign-in">
+              Sign in
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

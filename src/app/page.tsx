@@ -1,11 +1,8 @@
 import { buttonVariants } from "@/components/ui/button";
-import User from "@/components/User";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
 
   return (
     <>
@@ -14,10 +11,10 @@ export default async function Home() {
         Go to admin page
       </Link>
 
-      <h2>Client Session</h2>
+      {/* <h2>Client Session</h2>
       <User />
       <h2>Server Session</h2>
-      {session ? <pre>{JSON.stringify(session)}</pre> : "No session"}
+      {session ? <pre>{JSON.stringify(session)}</pre> : "No session"} */}
     </>
   );
 }

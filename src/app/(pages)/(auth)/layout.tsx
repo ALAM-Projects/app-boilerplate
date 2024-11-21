@@ -7,7 +7,9 @@ type AuthLayoutProps = {
 const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   return (
     <>
-      <div className="bg-slate-200 p-10 rounded-md w-[500px]">{children}</div>
+      <div className="bg-card border-2 border-primary p-10 rounded-md w-[500px]">
+        {children}
+      </div>
     </>
   );
 };
