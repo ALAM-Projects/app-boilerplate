@@ -23,11 +23,7 @@ export async function POST(req: Request) {
 
     const token = await signJwtAccessToken(user);
 
-    console.log("TOKEN", token);
-    console.log("TOKEN", token);
-    console.log("TOKEN", token);
-
-    const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password?token=${token}`;
+    const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}/new-password?email=${email}&token=${token}`;
 
     const { data, error } = await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
@@ -37,10 +33,6 @@ export async function POST(req: Request) {
         resetPasswordLink: resetPasswordLink,
       }),
     });
-
-    console.log("EMAIL ERROR", error);
-    console.log("EMAIL ERROR", error);
-    console.log("EMAIL ERROR", error);
 
     if (error) {
       return NextResponse.json({ message: error.message }, { status: 500 });
