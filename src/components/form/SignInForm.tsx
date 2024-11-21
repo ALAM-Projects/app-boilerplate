@@ -39,11 +39,13 @@ const SignInForm = () => {
     },
   });
 
-  // const sendEmail = async () => {
-  //   const result = await sendResetPasswordEmail();
+  const sendResetEmail = async () => {
+    const result = await sendResetPasswordEmail({
+      email: "alam.projectss@gmail.com",
+    });
 
-  //   console.log("EMAIL RESULT", result);
-  // };
+    console.log("EMAIL RESULT", result);
+  };
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
     const signInData = await signIn("credentials", {
@@ -105,7 +107,10 @@ const SignInForm = () => {
       </form>
       <p className="text-center text-sm text-gray-600 mt-2">
         I don&apos;t remebmer my password.{" "}
-        <Button onClick={() => {}} className="text-blue-500 hover:underline">
+        <Button
+          onClick={() => sendResetEmail()}
+          className="text-blue-500 hover:underline"
+        >
           Reset
         </Button>
       </p>

@@ -1,15 +1,18 @@
 import { defaultActions } from "@/actions";
-import { authOptions } from "@/lib/auth";
-import { getServerSession, Session } from "next-auth";
+import { NextResponse } from "next/server";
 
-export const sendResetPasswordEmail = async () => {
-  const session = await getServerSession(authOptions);
+type ResetEmailPayload = {
+  email: string;
+};
 
-  // const payload = {
-  //   userFirstname: session.user.username,
-  // };
+export const sendResetPasswordEmail = async (payload: ResetEmailPayload) => {
+  console.log("PAYLOAD", payload);
+  console.log("PAYLOAD", payload);
+  console.log("PAYLOAD", payload);
 
-  const result = await defaultActions.POST("/email/reset-password", {});
-
-  return result;
+  const result = await defaultActions.POST("/email/reset-password", payload);
+  if (result) {
+    return NextResponse.json(result);
+  } else
+    return NextResponse.json({ error: "Error sending email" }, { status: 500 });
 };

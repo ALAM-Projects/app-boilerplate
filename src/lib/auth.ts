@@ -2,8 +2,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "./db";
-import { compare } from "bcrypt";
 import { signJwtAccessToken } from "./token";
+import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
         });
         if (!existingUser) return null;
 
-        const passwordMatch = await compare(
+        const passwordMatch = await bcrypt.compare(
           credentials.password,
           existingUser.password
         );

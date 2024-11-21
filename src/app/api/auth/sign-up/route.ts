@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
-import { hash } from "bcrypt";
+import bcrypt from "bcryptjs";
 import * as z from "zod";
 
 // define a schema for input validation
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     }
 
     // create new user
-    const hashedPassword = await hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await db.user.create({
       data: {
         email,
