@@ -23,9 +23,10 @@ export function verifyJwtAccessToken(token: string) {
     const secret_key = process.env.SECRET_KEY;
     const decoded = jwt.verify(token, secret_key!);
 
-    return decoded as JwtPayload;
+    if (decoded) {
+      return decoded as JwtPayload;
+    }
   } catch (error) {
-    console.log(error);
     return null;
   }
 }

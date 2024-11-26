@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import AuthProvider from "@/components/AuthProvider";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +19,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          // enableSystem
-          // disableTransitionOnChange
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
           <AuthProvider>
             <main className="h-screen flex flex-col justify-center items-center">

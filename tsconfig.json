@@ -30,7 +30,9 @@
     ".next/types/**/*.ts",
     "!./.next/types/app/api/route.ts",
     "src/app/api/protected/route.ts",
-    "src/middleware/authMiddleware.js"
+    "src/middleware/authMiddleware.js",
+    "src/lib/polyfills.js",
+    "src/hocs/auth-only.jsx"
   ],
   "exclude": ["node_modules"]
 }

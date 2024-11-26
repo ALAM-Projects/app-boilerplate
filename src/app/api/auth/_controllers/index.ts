@@ -21,3 +21,12 @@ export const resetPassword = async (payload: ResetPasswordPayload) => {
 
   return result;
 };
+
+type VerifyTokenPayload = {
+  token: string;
+};
+export const verifyToken = async (payload: VerifyTokenPayload) => {
+  const result = await defaultActions.POST("/auth/verify-token", payload);
+
+  return result;
+};
