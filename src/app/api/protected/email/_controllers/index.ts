@@ -6,7 +6,10 @@ type ResetEmailPayload = {
 };
 
 export const sendResetPasswordEmail = async (payload: ResetEmailPayload) => {
-  const result = await defaultActions.POST("/email/reset-password", payload);
+  const result = await defaultActions.POST(
+    "/protected/email/reset-password",
+    payload
+  );
   if (result) {
     return NextResponse.json(result);
   } else

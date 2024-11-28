@@ -1,8 +1,7 @@
 "use server";
 
-import { get } from "http";
 import Posts from ".";
-import { getPosts } from "@/app/api/post/_controllers";
+import { getPosts } from "@/app/api/protected/post/_controllers";
 
 const PostsPage = async () => {
   const response = await getPosts();

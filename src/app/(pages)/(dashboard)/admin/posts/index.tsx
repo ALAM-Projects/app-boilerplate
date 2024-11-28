@@ -1,6 +1,5 @@
 "use client";
 
-import { authOnly } from "@/hocs/auth-only";
 import { Post } from "@prisma/client";
 import { FC } from "react";
 
@@ -17,4 +16,4 @@ const Posts: FC<PostsProps> = ({ posts }) => {
   );
 };
 
-export default authOnly({ ChildComponent: Posts, authorizedRoles: [] });
+export default Posts;

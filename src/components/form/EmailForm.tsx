@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "@/hooks/use-toast";
-import { sendResetPasswordEmail } from "@/app/api/email/_controllers";
+import { sendResetPasswordEmail } from "@/app/api/protected/email/_controllers";
 import Link from "next/link";
 
 const FormSchema = z.object({

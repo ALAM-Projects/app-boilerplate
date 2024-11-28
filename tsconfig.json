@@ -32,7 +32,9 @@
     "src/app/api/protected/route.ts",
     "src/middleware/authMiddleware.js",
     "src/lib/polyfills.js",
-    "src/hocs/auth-only.jsx"
+    "src/hocs/auth-only.jsx",
+    "src/lib/generate-pdf.js",
+    "src/middleware.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
-import ResetPasswordEmail from "../../../../../react-email-starter/emails/reset-password";
+import ResetPasswordEmail from "../../../../../../react-email-starter/emails/reset-password";
 import { Resend } from "resend";
 import { db } from "@/lib/db";
 import { signJwtAccessToken } from "@/lib/token";
+import { validateAccessToken } from "@/lib/validateAccessToken";
 
 export async function POST(req: Request) {
   try {
+    const res = await validateAccessToken(req);
+
+    if (res.status === 401) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
     const { email } = body;
 

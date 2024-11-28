@@ -180,6 +180,43 @@ async function DELETE(
   }
 }
 
+// async function POSTFILE_DOWNLOAD(
+//   url: string,
+//   data: any,
+//   token?: string,
+//   filename = "download.pdf"
+// ) {
+//   try {
+//     console.log("DATA", JSON.stringify(data));
+//     const headers: HeadersInit = {
+//       "Content-Type": "application/json",
+//     };
+//     if (token) headers.Authorization = `Bearer ${token}`;
+//     console.log("HERE", process.env.NEXT_PUBLIC_BASE_URL + url);
+//     const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + url, {
+//       method: "POST",
+//       mode: "cors", // no-cors, *cors, same-origin
+//       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+//       credentials: "same-origin", // include, *same-origin, omit
+//       headers,
+//       redirect: "follow", // manual, *follow, error
+//       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+//       body: JSON.stringify(data), // body data type must match "Content-Type" header
+//     });
+
+//     console.log("RESPONSEEEEEEEEEEEE", response);
+
+//     if (!response.ok) {
+//       throw new Error("Network response was not ok");
+//     }
+
+//     const blob = await response.blob();
+//     return { blob, filename };
+//     // saveAs(blob, filename);
+//   } catch (error) {
+//     console.error("Error downloading the file:", error);
+//   }
+// }
 export const defaultActions = {
   POST,
   POSTFILE,
@@ -187,4 +224,5 @@ export const defaultActions = {
   PATCH,
   PUT,
   DELETE,
+  // POSTFILE_DOWNLOAD,
 };
