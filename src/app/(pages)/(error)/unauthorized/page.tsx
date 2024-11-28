@@ -1,7 +1,7 @@
-import Unauthorized from "@/components/Unauthorized";
-
 const UnauthorizedPage = () => {
-  return <Unauthorized />;
+  return <div>Unauthorized</div>;
+
+  // <Unauthorized />;
 };
 
 export default UnauthorizedPage;

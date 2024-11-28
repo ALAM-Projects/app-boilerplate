@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
 
 // Define the roles required for specific routes
-// const allowedRoles: { [key: string]: string } = {
-//   "/admin": "Admin", // Only users with 'admin' role can access /admin
-//   "/admin/posts": "Admin", // Only users with 'user' role can access /dashboard
-// };
+const allowedRoles: { [key: string]: string } = {
+  "/admin": "Admin", // Only users with 'admin' role can access /admin
+  "/admin/posts": "Admin", // Only users with 'user' role can access /dashboard
+};
 export default withAuth(function middleware(req) {
   // Use NextAuth's getServerSession to get the session
   const session = req.nextauth.token;
@@ -25,12 +25,12 @@ export default withAuth(function middleware(req) {
   const requestedPath = req.nextUrl.pathname;
 
   // If the page requires role-based access
-  // if (
-  //   allowedRoles[requestedPath] &&
-  //   session.role !== allowedRoles[requestedPath]
-  // ) {
-  //   return NextResponse.redirect(new URL("/forbidden", req.url)); // Redirect to /forbidden if role is unauthorized
-  // }
+  if (
+    allowedRoles[requestedPath] &&
+    session.role !== allowedRoles[requestedPath]
+  ) {
+    return NextResponse.redirect(new URL("/forbidden", req.url)); // Redirect to /forbidden if role is unauthorized
+  }
 
   // // All checks passed, allow the request to continue
   return NextResponse.next();
