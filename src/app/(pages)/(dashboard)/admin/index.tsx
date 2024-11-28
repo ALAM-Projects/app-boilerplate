@@ -2,7 +2,6 @@
 
 import DownloadPdfButton from "@/components/DownloadPdfButton";
 import { buttonVariants } from "@/components/ui/button";
-import { authOnly } from "@/hocs/auth-only";
 import { Session } from "next-auth";
 import Link from "next/link";
 import { FC } from "react";
