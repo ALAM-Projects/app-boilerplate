@@ -29,7 +29,7 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts",
     "!./.next/types/app/api/route.ts",
-    "src/app/api/protected/route.ts",
+    "src/app/api/route.ts",
     "src/middleware/authMiddleware.js",
     "src/lib/polyfills.js",
     "src/hocs/auth-only.jsx",

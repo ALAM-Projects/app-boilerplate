@@ -2,19 +2,20 @@ async function GET(url = "", data = {}, token?: string) {
   try {
     const headers: HeadersInit = {};
     if (token) headers.Authorization = `Bearer ${token}`;
+
+    const queryParams = new URLSearchParams(data);
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api` +
         url +
         "?" +
-        new URLSearchParams(data),
+        queryParams.toString(),
       {
         method: "GET",
         headers,
       }
     );
-    // if (!response.ok) {
-    //   console.error(`HTTP call failed with status: ${response.status}`);
-    // }
+
     return await response.json();
   } catch (e) {
     console.error(e);
@@ -34,6 +35,7 @@ async function POST(
     const headers: HeadersInit = {};
     if (!includeFile) headers["Content-Type"] = "application/json";
     if (token) headers.Authorization = `Bearer ${token}`;
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api` + url,
       {

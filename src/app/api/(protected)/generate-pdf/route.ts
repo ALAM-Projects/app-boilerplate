@@ -4,10 +4,15 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const res = await validateAccessToken(req);
+    const roles = ["Admin"];
+
+    const res = await validateAccessToken(req, roles);
 
     if (res.status === 401) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (res.status === 403) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     const data = await req.json();

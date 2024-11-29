@@ -8,7 +8,7 @@ const DownloadPdfButton = ({ data }: any) => {
     setLoading(true);
 
     try {
-      const res = await fetch("/protected/api/generate-pdf", {
+      const res = await fetch("/api/generate-pdf", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

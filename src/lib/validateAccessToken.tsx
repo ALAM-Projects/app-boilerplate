@@ -1,7 +1,10 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
-export async function validateAccessToken(req: Request) {
+export async function validateAccessToken(
+  req: Request,
+  requiredRoles?: string[]
+) {
   try {
     const authHeader = req.headers.get("authorization");
     const accessToken = authHeader && authHeader.split(" ")[1];
@@ -15,6 +18,20 @@ export async function validateAccessToken(req: Request) {
 
     if (!decoded) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    if (requiredRoles && requiredRoles.length > 0) {
+      const userRoles = (decoded as JwtPayload)?.role || [];
+      const hasRequiredRole = requiredRoles.some((role) =>
+        userRoles.includes(role)
+      );
+
+      if (!hasRequiredRole) {
+        return NextResponse.json(
+          { error: "Forbidden: Insufficient permissions" },
+          { status: 403 }
+        );
+      }
     }
 
     return decoded as JwtPayload; // Return the decoded token payload

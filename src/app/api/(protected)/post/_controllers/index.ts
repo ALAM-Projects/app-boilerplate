@@ -6,7 +6,7 @@ export const getPosts = async () => {
   const session = await getServerSession(authOptions);
 
   const result = await defaultActions.GET(
-    "/protected/post",
+    "/post",
     session?.user,
     session?.accessToken
   );

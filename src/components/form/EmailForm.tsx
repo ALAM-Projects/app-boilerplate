@@ -14,8 +14,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { toast } from "@/hooks/use-toast";
-import { sendResetPasswordEmail } from "@/app/api/protected/email/_controllers";
+
 import Link from "next/link";
+import { sendResetPasswordEmail } from "@/app/api/email/_controllers";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),

@@ -1,12 +1,6 @@
 import Navbar from "@/components/Navbar";
-import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
-import AuthProvider from "@/components/AuthProvider";
-import { ThemeProvider } from "next-themes";
-
-const inter = Inter({ subsets: ["latin"] });
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "App boilerplate",
