@@ -17,6 +17,8 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+import Loader from "../Loader";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -29,6 +31,7 @@ const FormSchema = z.object({
 const SignInForm = () => {
   const router = useRouter();
   const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -39,21 +42,24 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    const signInData = await signIn("credentials", {
+    setLoading(true);
+    const response = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     });
 
-    if (signInData?.error) {
-      return toast({
-        title: "Error",
-        description: "Oops! Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    } else {
+    setLoading(false); // Set loading to false after the response
+
+    if (response && !response.error) {
       router.push("/admin");
       router.refresh();
+    } else {
+      return toast({
+        title: "Error",
+        description: "Oops! Qualcosa è andato storto. Riprova.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -93,8 +99,12 @@ const SignInForm = () => {
               )}
             />
           </div>
-          <Button className="w-full mt-6" type="submit">
-            Sign in
+          <Button
+            className="w-full mt-6 relative"
+            type="submit"
+            disabled={loading} // Disable button when loading
+          >
+            {loading ? <Loader /> : "Sign in"}
           </Button>
         </form>
         <p className="text-center text-sm text-gray-600 mt-2">

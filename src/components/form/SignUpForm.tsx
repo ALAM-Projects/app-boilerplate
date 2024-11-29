@@ -18,6 +18,8 @@ import GoogleSignInButton from "../GoogleSignInButton";
 import { redirect } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { signUp } from "@/app/api/auth/_controllers";
+import Loader from "../Loader";
+import { useState } from "react";
 
 const FormSchema = z
   .object({
@@ -35,6 +37,7 @@ const FormSchema = z
   });
 
 const SignUpForm = () => {
+  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -48,18 +51,21 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
+    setLoading(true);
     const response = await signUp({
       username: values.username,
       email: values.email,
       password: values.password,
     });
 
+    setLoading(false);
+
     if (!response.error) {
       redirect("/sign-in");
     } else {
       return toast({
         title: "Error",
-        description: "Oops! Something went wrong. Please try again.",
+        description: "Oops! Qualcosa è andato storto. Riprova.",
         variant: "destructive",
       });
     }
@@ -130,8 +136,12 @@ const SignUpForm = () => {
             )}
           />
         </div>
-        <Button className="w-full mt-6" type="submit">
-          Sign up
+        <Button
+          className="w-full mt-6 relative"
+          type="submit"
+          disabled={loading} // Disable button when loading
+        >
+          {loading ? <Loader /> : "Sign up"}
         </Button>
       </form>
       <div className="mx-auto my-4 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
